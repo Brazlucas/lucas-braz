@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import TypingBackground from './TypingBackground';
+import { useLanguage } from '../context/LanguageContext';
 
 const Hero = () => {
+  const { translations } = useLanguage();
   return (
     <section className="min-h-screen flex flex-col justify-center items-center text-center p-8 relative overflow-hidden bg-slate-900">
       <TypingBackground />
@@ -18,7 +20,7 @@ const Hero = () => {
           Lucas Braz
         </h1>
         <h2 className="text-2xl md:text-3xl text-slate-300 font-semibold">
-          Desenvolvedor Full-Stack
+          {translations.hero.role}
         </h2>
       </motion.div>
 
@@ -28,7 +30,7 @@ const Hero = () => {
         transition={{ delay: 0.5, duration: 0.8 }}
         className="text-lg md:text-xl text-slate-400 max-w-2xl mt-4 relative z-10"
       >
-        Especialista em Laravel e Vue.js, focado em performance, escalabilidade e experiência do usuário.
+        {translations.hero.description}
       </motion.p>
 
       <motion.div
@@ -42,14 +44,14 @@ const Hero = () => {
             href="#contact"
             className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30"
           >
-            Entre em Contato
+            {translations.hero.contactBtn}
           </a>
           <a 
             href={`${import.meta.env.BASE_URL}cv-lucas-2026.pdf`}
             download
             className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-medium transition-colors border border-slate-700"
           >
-            Baixar Currículo
+            {translations.hero.downloadCv}
           </a>
         </div>
       </motion.div>

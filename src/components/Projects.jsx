@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, ShoppingBag } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Projects = () => {
+  const { translations } = useLanguage();
   return (
     <section id="projects" className="py-20 px-8 max-w-6xl mx-auto">
       <motion.h2 
@@ -10,7 +12,7 @@ const Projects = () => {
         viewport={{ once: true }}
         className="text-3xl md:text-4xl font-bold mb-12 text-blue-400"
       >
-        Projetos
+        {translations.projects.title}
       </motion.h2>
 
       <div className="grid md:grid-cols-2 gap-8">
@@ -30,7 +32,7 @@ const Projects = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Gataria Shop</h3>
               <p className="text-slate-300 mb-4">
-                Loja virtual especializada em camisetas estampadas personalizadas com temática de gatinhos.
+                {translations.projects.gatariaDesc}
               </p>
             </div>
 
@@ -46,7 +48,7 @@ const Projects = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
             >
-              Visitar Loja <ExternalLink className="w-4 h-4" />
+              {translations.projects.visitStore} <ExternalLink className="w-4 h-4" />
             </a>
           </div>
         </motion.div>
@@ -59,7 +61,7 @@ const Projects = () => {
           transition={{ delay: 0.2 }}
           className="flex items-center justify-center bg-slate-800/30 rounded-2xl border-2 border-dashed border-slate-700 min-h-[300px]"
         >
-          <p className="text-slate-500 font-medium">Em breve mais projetos...</p>
+          <p className="text-slate-500 font-medium">{translations.projects.soon}</p>
         </motion.div>
       </div>
     </section>

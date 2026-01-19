@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
+  const { translations, setLanguage, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
@@ -17,12 +19,12 @@ const Navbar = () => {
   });
 
   const links = [
-    { name: 'Sobre', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projetos', href: '#projects' },
-    { name: 'Experiência', href: '#experience' },
-    { name: 'Educação', href: '#education' },
-    { name: 'Contato', href: '#contact' },
+    { name: translations.navbar.about, href: '#about' },
+    { name: translations.navbar.skills, href: '#skills' },
+    { name: translations.navbar.projects, href: '#projects' },
+    { name: translations.navbar.experience, href: '#experience' },
+    { name: translations.navbar.education, href: '#education' },
+    { name: translations.navbar.contact, href: '#contact' },
   ];
 
   return (
@@ -54,6 +56,22 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
+              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-slate-700">
+                <button 
+                  onClick={() => setLanguage('pt')} 
+                  className={`p-1.5 rounded-md transition-colors ${language === 'pt' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
+                  title="Português"
+                >
+                  🇧🇷
+                </button>
+                <button 
+                  onClick={() => setLanguage('en')} 
+                  className={`p-1.5 rounded-md transition-colors ${language === 'en' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
+                  title="English"
+                >
+                  🇺🇸
+                </button>
+              </div>
             </div>
           </div>
 
@@ -82,6 +100,20 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
+            <div className="flex items-center gap-4 px-3 py-2 mt-2 border-t border-slate-800">
+              <button 
+                onClick={() => { setLanguage('pt'); setIsOpen(false); }} 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${language === 'pt' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
+              >
+                🇧🇷 Português
+              </button>
+              <button 
+                onClick={() => { setLanguage('en'); setIsOpen(false); }} 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${language === 'en' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
+              >
+                🇺🇸 English
+              </button>
+            </div>
           </div>
         </div>
       )}

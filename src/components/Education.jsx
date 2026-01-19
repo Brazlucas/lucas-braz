@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Award } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Education = () => {
+  const { translations } = useLanguage();
   return (
     <section id="education" className="py-20 px-8 bg-slate-900/50">
       <div className="max-w-6xl mx-auto">
@@ -13,7 +15,7 @@ const Education = () => {
               <div className="p-3 bg-purple-500/10 rounded-lg">
                 <GraduationCap className="w-8 h-8 text-purple-400" />
               </div>
-              <h2 className="text-3xl font-bold text-white">Educação</h2>
+              <h2 className="text-3xl font-bold text-white">{translations.education.title}</h2>
             </div>
 
             <div className="space-y-8">
@@ -23,9 +25,9 @@ const Education = () => {
                 viewport={{ once: true }}
                 className="bg-slate-800 p-6 rounded-xl border-l-4 border-purple-500"
               >
-                <h3 className="text-xl font-bold text-white">Análise e Desenvolvimento de Sistemas</h3>
+                <h3 className="text-xl font-bold text-white">{translations.education.items.ads}</h3>
                 <p className="text-purple-400">UNICESUMAR</p>
-                <p className="text-slate-400 text-sm mt-1">5º Semestre</p>
+                <p className="text-slate-400 text-sm mt-1">{translations.education.items.semester}</p>
               </motion.div>
 
               <motion.div 
@@ -35,7 +37,7 @@ const Education = () => {
                 transition={{ delay: 0.2 }}
                 className="bg-slate-800 p-6 rounded-xl border-l-4 border-purple-500"
               >
-                <h3 className="text-xl font-bold text-white">Advanced English</h3>
+                <h3 className="text-xl font-bold text-white">{translations.education.items.english}</h3>
                 <p className="text-purple-400">FISK</p>
                 <p className="text-slate-400 text-sm mt-1">2015 - 2020</p>
               </motion.div>
@@ -48,15 +50,15 @@ const Education = () => {
               <div className="p-3 bg-green-500/10 rounded-lg">
                 <Award className="w-8 h-8 text-green-400" />
               </div>
-              <h2 className="text-3xl font-bold text-white">Certificações</h2>
+              <h2 className="text-3xl font-bold text-white">{translations.education.certifications}</h2>
             </div>
 
             <div className="space-y-4">
               {[
-                { title: "Formação front-end", org: "Alura", year: "2022" },
-                { title: "REACT.js – 30 horas", org: "ENIAC", year: "" },
-                { title: "SCRUM (Métodos ágeis) 10 horas", org: "ENIAC", year: "" },
-                { title: "Vencedor hackaton creator-it 2022", org: "ENIAC", year: "2022" }
+                { title: translations.education.certs[0].title, org: "Alura", year: "2022" },
+                { title: translations.education.certs[1].title, org: "ENIAC", year: "" },
+                { title: translations.education.certs[2].title, org: "ENIAC", year: "" },
+                { title: translations.education.certs[3].title, org: "ENIAC", year: "2022" }
               ].map((cert, index) => (
                 <motion.div
                   key={index}

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Github, Linkedin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+  const { translations } = useLanguage();
   return (
     <section id="contact" className="py-20 px-8">
       <div className="max-w-4xl mx-auto text-center">
@@ -11,7 +13,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold mb-12 text-white"
         >
-          Vamos Conversar?
+          {translations.contact.title}
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -91,7 +93,7 @@ const Contact = () => {
         </motion.div>
 
         <footer className="mt-20 text-slate-500 text-sm">
-          <p>© {new Date().getFullYear()} Lucas Braz. Desenvolvido com React & Tailwind.</p>
+          <p>{translations.contact.footer.replace('{year}', new Date().getFullYear())}</p>
         </footer>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Code2, Database, Server, Layout, Terminal, PenTool } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const SkillCard = ({ title, skills, icon: Icon, delay }) => (
   <motion.div
@@ -26,34 +27,35 @@ const SkillCard = ({ title, skills, icon: Icon, delay }) => (
 );
 
 const Skills = () => {
+  const { translations } = useLanguage();
   const categories = [
     {
-      title: "Front-end",
+      title: translations.skills.categories.frontend,
       icon: Layout,
       skills: ["HTML5", "CSS3", "SASS", "JavaScript", "TypeScript", "Vue.js", "React"]
     },
     {
-      title: "Back-end",
+      title: translations.skills.categories.backend,
       icon: Server,
       skills: ["Node.js", "Nest.js", "PHP (Laravel)", "C#", ".NET", "Golang"]
     },
     {
-      title: "Banco de Dados",
+      title: translations.skills.categories.database,
       icon: Database,
       skills: ["SQL (Relacionais)"]
     },
     {
-      title: "DevOps & Ferramentas",
+      title: translations.skills.categories.devops,
       icon: Terminal,
       skills: ["Docker", "Kubernetes", "Git Actions"]
     },
     {
-      title: "Design & Produtividade",
+      title: translations.skills.categories.design,
       icon: PenTool,
       skills: ["Figma", "Canva", "Photoshop", "Office", "LibreOffice"]
     },
     {
-      title: "Sistemas Operacionais",
+      title: translations.skills.categories.os,
       icon: Code2,
       skills: ["Windows", "Arch Linux", "Kali Linux"]
     }
@@ -68,7 +70,7 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-400"
         >
-          Domínio Técnico
+          {translations.skills.title}
         </motion.h2>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

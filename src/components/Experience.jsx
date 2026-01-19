@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Briefcase } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const ExperienceItem = ({ role, company, period, description, delay }) => (
   <motion.div
@@ -29,24 +30,25 @@ const ExperienceItem = ({ role, company, period, description, delay }) => (
 );
 
 const Experience = () => {
+  const { translations } = useLanguage();
   const experiences = [
     {
-      role: "Desenvolvedor Junior III full-stack",
+      role: translations.experience.jobs[0].role,
       company: "INFOCAR TECNOLOGIA",
       period: "01/2023 - Atualmente",
-      description: "Desenvolvimento e manutenção de sistemas web, foco em Laravel e Vue.js."
+      description: translations.experience.jobs[0].description
     },
     {
-      role: "Desenvolvedor front-end estagiário",
+      role: translations.experience.jobs[1].role,
       company: "AUTOVIST (SQAD)",
       period: "06/2022 - 01/2023",
-      description: "Atuação no front-end utilizando tecnologias modernas para criar interfaces responsivas."
+      description: translations.experience.jobs[1].description
     },
     {
-      role: "Manutenção de computadores",
+      role: translations.experience.jobs[2].role,
       company: "PCHELP Informática",
       period: "2018",
-      description: ""
+      description: translations.experience.jobs[2].description
     }
   ];
 
@@ -56,7 +58,7 @@ const Experience = () => {
         <div className="p-3 bg-blue-500/10 rounded-lg">
           <Briefcase className="w-8 h-8 text-blue-400" />
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-white">Experiência</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-white">{translations.experience.title}</h2>
       </div>
 
       <div className="ml-4">
