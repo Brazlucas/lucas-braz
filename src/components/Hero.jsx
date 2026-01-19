@@ -37,12 +37,21 @@ const Hero = () => {
         transition={{ delay: 1, duration: 0.8 }}
         className="mt-12 relative z-10"
       >
-        <a 
-          href="#contact"
-          className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30"
-        >
-          Entre em Contato
-        </a>
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
+          <a 
+            href="#contact"
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30"
+          >
+            Entre em Contato
+          </a>
+          <a 
+            href={`${import.meta.env.BASE_URL}cv-lucas-2026.pdf`}
+            download
+            className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-medium transition-colors border border-slate-700"
+          >
+            Baixar Currículo
+          </a>
+        </div>
       </motion.div>
 
       <motion.div
