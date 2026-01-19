@@ -24,7 +24,7 @@ const About = () => {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
             <img 
-              src="/images/file.jpg" 
+              src={`${import.meta.env.BASE_URL}images/file.jpg`}
               alt="Lucas Braz" 
               className="relative w-full aspect-square object-cover rounded-2xl shadow-2xl border-2 border-slate-700/50"
             />
