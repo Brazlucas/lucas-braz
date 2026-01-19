@@ -64,6 +64,45 @@ const Hero = () => {
       >
         <ArrowDown className="w-8 h-8 text-slate-500" />
       </motion.div>
+
+      {/* Floating Tech Stack Icons */}
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/PHP-logo.svg.png`}
+        alt="PHP"
+        className="absolute left-5 top-20 md:left-20 md:top-32 w-16 h-16 md:w-24 md:h-24 object-contain opacity-30 hover:opacity-60 transition-opacity duration-300"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ 
+          opacity: 0.3, 
+          x: 0,
+          y: [0, -15, 0],
+          rotate: [0, -5, 0]
+        }}
+        transition={{ 
+          opacity: { duration: 1 },
+          x: { duration: 1 },
+          y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+          rotate: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+        }}
+      />
+      
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/Typescript_logo_2020.svg.png`}
+        alt="TypeScript"
+        className="absolute right-5 bottom-32 md:right-20 md:bottom-40 w-16 h-16 md:w-24 md:h-24 object-contain opacity-30 hover:opacity-60 transition-opacity duration-300"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ 
+          opacity: 0.3, 
+          x: 0,
+          y: [0, 15, 0],
+          rotate: [0, 5, 0]
+        }}
+        transition={{ 
+          opacity: { duration: 1 },
+          x: { duration: 1 },
+          y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+          rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+        }}
+      />
     </section>
   );
 };
