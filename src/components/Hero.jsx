@@ -1,16 +1,18 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
+import TypingBackground from './TypingBackground';
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center text-center p-8 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col justify-center items-center text-center p-8 relative overflow-hidden bg-slate-900">
+      <TypingBackground />
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 -z-10" />
       
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="mb-4"
+        className="mb-4 relative z-10"
       >
         <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-4">
           Lucas Braz
@@ -24,7 +26,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.8 }}
-        className="text-lg md:text-xl text-slate-400 max-w-2xl mt-4"
+        className="text-lg md:text-xl text-slate-400 max-w-2xl mt-4 relative z-10"
       >
         Especialista em Laravel e Vue.js, focado em performance, escalabilidade e experiência do usuário.
       </motion.p>
@@ -33,7 +35,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.8 }}
-        className="mt-12"
+        className="mt-12 relative z-10"
       >
         <a 
           href="#contact"
