@@ -7,12 +7,14 @@ import Experience from './components/Experience';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import LanguageTooltip from './components/LanguageTooltip';
 
 function App() {
   return (
     <div className="min-h-screen text-slate-200 selection:bg-blue-500/30 relative">
       <BackgroundAnimation />
       <Navbar />
+      <LanguageTooltip />
       <main className="relative z-10">
         <Hero />
         <About />

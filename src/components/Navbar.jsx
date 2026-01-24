@@ -56,7 +56,7 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-slate-700">
+              <div id="language-selector" className="flex items-center gap-2 ml-4 pl-4 border-l border-slate-700">
                 <button 
                   onClick={() => setLanguage('pt')} 
                   className={`p-1.5 rounded-md transition-colors ${language === 'pt' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
@@ -65,6 +65,7 @@ const Navbar = () => {
                   🇧🇷
                 </button>
                 <button 
+                  id="us-language-button"
                   onClick={() => setLanguage('en')} 
                   className={`p-1.5 rounded-md transition-colors ${language === 'en' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
                   title="English"
