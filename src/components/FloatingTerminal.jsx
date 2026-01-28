@@ -72,7 +72,7 @@ const MatrixRain = ({ isActive }) => {
 };
 
 const FloatingTerminal = () => {
-  const { translations } = useLanguage();
+  const { translations, language } = useLanguage();
   const { isTerminalOpen, setIsTerminalOpen } = useTerminal();
   const [isExpanded, setIsExpanded] = useState(false);
   const [terminalInput, setTerminalInput] = useState('');
@@ -186,18 +186,18 @@ const FloatingTerminal = () => {
     if (isTerminalOpen && terminalHistory.length === 0) {
       setTimeout(() => {
         setTerminalHistory([
-          { type: 'system', text: translations.language === 'pt' 
+          { type: 'system', text: language === 'pt' 
             ? '> Sistema iniciado. Digite "help" para ver comandos disponíveis.'
             : '> System initialized. Type "help" to see available commands.'
           }
         ]);
       }, 500);
     }
-  }, [isTerminalOpen, translations.language, terminalHistory.length]);
+  }, [isTerminalOpen, language, terminalHistory.length]);
 
   const handleCommand = (cmd) => {
     const command = cmd.toLowerCase().trim();
-    const lang = translations.language === 'pt' ? 'pt' : 'en';
+    const lang = language === 'pt' ? 'pt' : 'en';
     
     let newHistory = [...terminalHistory, { type: 'input', text: `$ ${cmd}` }];
 
@@ -215,7 +215,7 @@ const FloatingTerminal = () => {
     } else if (command === 'skills') {
       newHistory.push({ 
         type: 'output', 
-        text: commands.skills[translations.language]
+        text: commands.skills[language] || commands.skills['en']
       });
       setTerminalHistory(newHistory);
       setShowSkills(true);
@@ -231,7 +231,7 @@ const FloatingTerminal = () => {
     } else if (command === 'unlock') {
       newHistory.push({ 
         type: 'output', 
-        text: commands.unlock[translations.language]
+        text: commands.unlock[language] || commands.unlock['en']
       });
       setTerminalHistory(newHistory);
       setIsUnlocked(true);
@@ -240,7 +240,7 @@ const FloatingTerminal = () => {
           ...prev,
           { 
             type: 'success', 
-            text: translations.language === 'pt'
+            text: language === 'pt'
               ? '✓ Acesso concedido! Bem-vindo ao sistema, Neo.'
               : '✓ Access granted! Welcome to the system, Neo.'
           }
@@ -249,7 +249,7 @@ const FloatingTerminal = () => {
     } else if (command === 'clear') {
       const clearMessage = {
         type: 'success',
-        text: translations.language === 'pt'
+        text: language === 'pt'
           ? '🗑️  TERMINAL LIMPO COM SUCESSO!'
           : '🗑️  TERMINAL CLEARED SUCCESSFULLY!'
       };
@@ -261,7 +261,7 @@ const FloatingTerminal = () => {
     } else if (command) {
       newHistory.push({ 
         type: 'error', 
-        text: translations.language === 'pt'
+        text: language === 'pt'
           ? `Comando não reconhecido: "${cmd}". Digite "help" para ajuda.`
           : `Command not recognized: "${cmd}". Type "help" for assistance.`
       });
@@ -476,7 +476,7 @@ const FloatingTerminal = () => {
                         value={terminalInput}
                         onChange={(e) => setTerminalInput(e.target.value)}
                         className="w-full h-full bg-transparent border-none outline-none text-transparent font-mono caret-primary-400 z-10"
-                        placeholder={!terminalInput ? (translations.language === 'pt' ? 'Digite um comando...' : 'Type a command...') : ''}
+                        placeholder={!terminalInput ? (language === 'pt' ? 'Digite um comando...' : 'Type a command...') : ''}
                         autoFocus
                         autoComplete="off"
                         spellCheck="false"
@@ -492,7 +492,7 @@ const FloatingTerminal = () => {
 
                   {/* Quick Commands */}
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {['unlock', 'skills', 'help', 'clear', 'matrix'].map((cmd) => (
+                    {['skills', 'help', 'clear', 'matrix'].map((cmd) => (
                       <motion.button
                         key={cmd}
                         onClick={() => {
@@ -544,7 +544,7 @@ const FloatingTerminal = () => {
                   THE MATRIX HAS YOU
                 </h1>
                 <p className="text-xl md:text-2xl text-green-400 animate-pulse">
-                  {translations.language === 'pt' 
+                  {language === 'pt' 
                     ? 'A escolha é sua, Neo.' 
                     : 'The choice is yours, Neo.'}
                 </p>
@@ -566,7 +566,7 @@ const FloatingTerminal = () => {
                     <div className="absolute top-2 left-4 w-20 h-6 bg-white/20 rounded-full blur-sm" />
                   </div>
                   <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-blue-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    {translations.language === 'pt' ? 'Ignorância' : 'Ignorance'}
+                    {language === 'pt' ? 'Ignorância' : 'Ignorance'}
                   </span>
                 </motion.button>
 
@@ -586,7 +586,7 @@ const FloatingTerminal = () => {
                     <div className="absolute top-2 left-4 w-20 h-6 bg-white/20 rounded-full blur-sm" />
                   </div>
                   <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-red-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    {translations.language === 'pt' ? 'Verdade' : 'Truth'}
+                    {language === 'pt' ? 'Verdade' : 'Truth'}
                   </span>
                 </motion.button>
               </div>
@@ -597,7 +597,7 @@ const FloatingTerminal = () => {
                 transition={{ delay: 2 }}
                 className="text-green-600/60 text-sm max-w-md mx-auto mt-8"
               >
-                {translations.language === 'pt'
+                {language === 'pt'
                   ? '"Lembre-se: tudo o que ofereço é a verdade. Nada mais."'
                   : '"Remember: all I\'m offering is the truth. Nothing more."'}
               </motion.p>
