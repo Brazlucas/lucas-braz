@@ -93,7 +93,7 @@ const TypewriterBlock = ({ code, className, delay = 0 }) => {
   return (
     <div className={`font-mono text-sm md:text-base whitespace-pre opacity-30 ${className}`}>
       {displayedText}
-      <span className="animate-pulse text-blue-400">|</span>
+      <span className="animate-pulse text-primary-400">|</span>
     </div>
   );
 };
@@ -102,13 +102,14 @@ const TypingBackground = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-slate-900" />
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/10 to-slate-900" />
+      <div className="absolute inset-0 bg-dark-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-dark-500 via-teal-900/10 to-cyan-900/10" />
       
       {/* Glowing Orbs */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent-600/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-600/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute top-[40%] left-[50%] w-[40%] h-[40%] bg-highlight-600/8 rounded-full blur-[120px] animate-pulse" />
       </div>
 
       {/* Typing Code Blocks */}

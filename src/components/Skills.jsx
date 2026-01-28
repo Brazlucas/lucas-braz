@@ -8,17 +8,17 @@ const SkillCard = ({ title, skills, icon: Icon, delay }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay }}
-    className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-all hover:scale-105"
+    className="bg-dark-200/50 p-6 rounded-xl border border-dark-100 hover:bg-dark-200 transition-all hover:scale-105"
   >
     <div className="flex items-center gap-3 mb-4">
-      <div className="p-3 bg-blue-500/10 rounded-lg">
-        <Icon className="w-6 h-6 text-blue-400" />
+      <div className="p-3 bg-primary-500/10 rounded-lg">
+        <Icon className="w-6 h-6 text-accent-400" />
       </div>
       <h3 className="text-xl font-semibold text-white">{title}</h3>
     </div>
     <div className="flex flex-wrap gap-2">
       {skills.map((skill) => (
-        <span key={skill} className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-md text-sm border border-slate-600/50">
+        <span key={skill} className="px-3 py-1 bg-dark-100/50 text-primary-100 rounded-md text-sm border border-dark-50/50">
           {skill}
         </span>
       ))}
@@ -62,13 +62,13 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 px-8 bg-slate-900/50">
+    <section id="skills" className="py-20 px-8 bg-dark-400/50">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-400"
+          className="text-3xl md:text-4xl font-bold mb-12 text-center text-primary-400"
         >
           {translations.skills.title}
         </motion.h2>

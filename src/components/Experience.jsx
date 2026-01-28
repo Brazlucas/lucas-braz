@@ -8,21 +8,21 @@ const ExperienceItem = ({ role, company, period, description, delay }) => (
     whileInView={{ opacity: 1, x: 0 }}
     viewport={{ once: true }}
     transition={{ delay }}
-    className="relative pl-8 pb-12 border-l-2 border-slate-700 last:border-0"
+    className="relative pl-8 pb-12 border-l-2 border-dark-100 last:border-0"
   >
-    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-500 border-4 border-slate-900" />
+    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary-500 border-4 border-dark-500" />
     
     <div className="mb-2">
       <h3 className="text-xl font-bold text-white">{role}</h3>
       <div className="flex flex-wrap gap-2 items-center text-sm mt-1">
-        <span className="text-blue-400 font-semibold">{company}</span>
-        <span className="text-slate-500">•</span>
-        <span className="text-slate-400">{period}</span>
+        <span className="text-primary-400 font-semibold">{company}</span>
+        <span className="text-primary-300/50">•</span>
+        <span className="text-primary-200/70">{period}</span>
       </div>
     </div>
     
     {description && (
-      <p className="text-slate-400 mt-2">
+      <p className="text-primary-200/70 mt-2">
         {description}
       </p>
     )}
@@ -55,8 +55,8 @@ const Experience = () => {
   return (
     <section id="experience" className="py-20 px-8 max-w-4xl mx-auto">
       <div className="flex items-center gap-4 mb-12">
-        <div className="p-3 bg-blue-500/10 rounded-lg">
-          <Briefcase className="w-8 h-8 text-blue-400" />
+        <div className="p-3 bg-accent-500/10 rounded-lg">
+          <Briefcase className="w-8 h-8 text-accent-400" />
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-white">{translations.experience.title}</h2>
       </div>

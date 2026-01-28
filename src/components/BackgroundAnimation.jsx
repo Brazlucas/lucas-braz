@@ -37,7 +37,7 @@ const BackgroundAnimation = () => {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
       {/* Background with slight transparency to show body color if needed, or just dark */}
-      <div className="absolute inset-0 bg-slate-900" />
+      <div className="absolute inset-0 bg-dark-500" />
       
       {/* Animated Code Snippets & Cats */}
       {elements.map((el) => (
@@ -63,8 +63,8 @@ const BackgroundAnimation = () => {
             isCat(el.text) 
               ? 'text-2xl opacity-50' 
               : isBinary(el.text)
-                ? 'text-emerald-500/40 tracking-widest' // Matrix style for binary
-                : 'text-blue-500/20'
+                ? 'text-accent-400/50 tracking-widest' // Matrix style for binary - agora em teal
+                : 'text-primary-500/20'
           }`}
           style={{ 
             fontSize: isCat(el.text) ? `${el.scale * 1.5}rem` : `${el.scale}rem`,
@@ -87,7 +87,7 @@ const BackgroundAnimation = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]"
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-[100px]"
       />
       <motion.div
         animate={{
@@ -100,7 +100,20 @@ const BackgroundAnimation = () => {
           ease: "easeInOut",
           delay: 2
         }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-[100px]"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.05, 0.15, 0.05],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 4
+        }}
+        className="absolute top-1/2 right-1/3 w-80 h-80 bg-highlight-500/10 rounded-full blur-[100px]"
       />
     </div>
   );

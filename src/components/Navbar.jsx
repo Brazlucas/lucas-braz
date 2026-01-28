@@ -35,12 +35,12 @@ const Navbar = () => {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800"
+      className="fixed top-0 left-0 right-0 z-50 bg-dark-500/80 backdrop-blur-md border-b border-dark-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <a href="#" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            <a href="#" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-400 via-primary-400 to-emerald-500">
               LB
             </a>
           </div>
@@ -51,15 +51,15 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-primary-200 hover:text-white hover:bg-dark-200 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
-              <div id="language-selector" className="flex items-center gap-2 ml-4 pl-4 border-l border-slate-700">
+              <div id="language-selector" className="flex items-center gap-2 ml-4 pl-4 border-l border-dark-100">
                 <button 
                   onClick={() => setLanguage('pt')} 
-                  className={`p-1.5 rounded-md transition-colors ${language === 'pt' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
+                  className={`p-1.5 rounded-md transition-colors ${language === 'pt' ? 'bg-dark-200 text-white' : 'text-primary-300 hover:text-white hover:bg-dark-200/50'}`}
                   title="Português"
                 >
                   🇧🇷
@@ -67,7 +67,7 @@ const Navbar = () => {
                 <button 
                   id="us-language-button"
                   onClick={() => setLanguage('en')} 
-                  className={`p-1.5 rounded-md transition-colors ${language === 'en' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
+                  className={`p-1.5 rounded-md transition-colors ${language === 'en' ? 'bg-dark-200 text-white' : 'text-primary-300 hover:text-white hover:bg-dark-200/50'}`}
                   title="English"
                 >
                   🇺🇸
@@ -79,7 +79,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-300 hover:text-white p-2"
+              className="text-primary-200 hover:text-white p-2"
             >
               {isOpen ? <X /> : <Menu />}
             </button>
@@ -89,28 +89,28 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-slate-900 border-b border-slate-800">
+        <div className="md:hidden bg-dark-500 border-b border-dark-200">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {links.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                className="text-primary-200 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
                 {link.name}
               </a>
             ))}
-            <div className="flex items-center gap-4 px-3 py-2 mt-2 border-t border-slate-800">
+            <div className="flex items-center gap-4 px-3 py-2 mt-2 border-t border-dark-200">
               <button 
                 onClick={() => { setLanguage('pt'); setIsOpen(false); }} 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${language === 'pt' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${language === 'pt' ? 'bg-dark-200 text-white' : 'text-primary-300'}`}
               >
                 🇧🇷 Português
               </button>
               <button 
                 onClick={() => { setLanguage('en'); setIsOpen(false); }} 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${language === 'en' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${language === 'en' ? 'bg-dark-200 text-white' : 'text-primary-300'}`}
               >
                 🇺🇸 English
               </button>

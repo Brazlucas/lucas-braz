@@ -10,7 +10,7 @@ const About = () => {
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-3xl md:text-4xl font-bold mb-12 text-blue-400 text-center md:text-left"
+        className="text-3xl md:text-4xl font-bold mb-12 text-primary-400 text-center md:text-left"
       >
         {translations.about.title}
       </motion.h2>
@@ -24,28 +24,28 @@ const About = () => {
           className="md:col-span-4 lg:col-span-3 flex flex-col gap-4"
         >
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 via-accent-500 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
             <img 
               src={`${import.meta.env.BASE_URL}images/file.jpg`}
               alt="Lucas Braz" 
-              className="relative w-full aspect-square object-cover rounded-2xl shadow-2xl border-2 border-slate-700/50"
+              className="relative w-full aspect-square object-cover rounded-2xl shadow-2xl border-2 border-dark-200/50"
             />
           </div>
           
           {/* Hobbies Card */}
-          <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+          <div className="bg-dark-200/50 p-4 rounded-xl border border-dark-100">
             <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
               <span className="text-xl">🚀</span> {translations.about.hobbiesTitle}
             </h3>
-            <div className="space-y-2 text-slate-400 text-sm">
+            <div className="space-y-2 text-primary-200/70 text-sm">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🛹</span> {translations.about.hobbies.skater}
               </div>
               <div className="flex items-center gap-2">
-                <Gamepad2 className="w-4 h-4 text-purple-400" /> {translations.about.hobbies.gamer}
+                <Gamepad2 className="w-4 h-4 text-accent-400" /> {translations.about.hobbies.gamer}
               </div>
               <div className="flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-blue-400" /> {translations.about.hobbies.hardware}
+                <Cpu className="w-4 h-4 text-primary-500" /> {translations.about.hobbies.hardware}
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="md:col-span-8 lg:col-span-9 space-y-6 text-slate-300 leading-relaxed text-lg"
+          className="md:col-span-8 lg:col-span-9 space-y-6 text-primary-100 leading-relaxed text-lg"
         >
           <p dangerouslySetInnerHTML={{ __html: translations.about.description1 }}></p>
           
@@ -66,15 +66,15 @@ const About = () => {
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 my-8">
-            <div className="bg-slate-800/30 p-5 rounded-xl border-l-4 border-blue-500">
+            <div id="backend-section" className="bg-dark-200/30 p-5 rounded-xl border-l-4 border-primary-500 scroll-mt-24">
               <h4 className="text-white font-bold mb-2">{translations.about.backendTitle}</h4>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-primary-200/70">
                 {translations.about.backendDesc}
               </p>
             </div>
-            <div className="bg-slate-800/30 p-5 rounded-xl border-l-4 border-green-500">
+            <div id="frontend-section" className="bg-dark-200/30 p-5 rounded-xl border-l-4 border-accent-500 scroll-mt-24">
               <h4 className="text-white font-bold mb-2">{translations.about.frontendTitle}</h4>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-primary-200/70">
                 {translations.about.frontendDesc}
               </p>
             </div>
@@ -84,11 +84,11 @@ const About = () => {
             {translations.about.description3}
           </p>
 
-          <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700 mt-8">
+          <div className="bg-gradient-to-r from-dark-200 to-dark-300 p-6 rounded-2xl border border-dark-100 mt-8">
             <h3 className="text-xl font-semibold mb-2 text-white flex items-center gap-2">
-              <Monitor className="w-5 h-5 text-blue-400" /> {translations.about.goalTitle}
+              <Monitor className="w-5 h-5 text-primary-400" /> {translations.about.goalTitle}
             </h3>
-            <p className="text-slate-400">
+            <p className="text-primary-200/70">
               {translations.about.goalDesc}
             </p>
           </div>

@@ -8,24 +8,30 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import LanguageTooltip from './components/LanguageTooltip';
+import FloatingTerminal from './components/FloatingTerminal';
+import { TerminalProvider } from './context/TerminalContext';
 
 function App() {
   return (
-    <div className="min-h-screen text-slate-200 selection:bg-blue-500/30 relative">
-      <BackgroundAnimation />
-      <Navbar />
-      <LanguageTooltip />
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Education />
-        <Contact />
-      </main>
-    </div>
+    <TerminalProvider>
+      <div className="min-h-screen text-primary-100 selection:bg-primary-500/30 relative">
+        <BackgroundAnimation />
+        <Navbar />
+        <LanguageTooltip />
+        <FloatingTerminal />
+        <main className="relative z-10">
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Education />
+          <Contact />
+        </main>
+      </div>
+    </TerminalProvider>
   );
 }
 
 export default App;
+

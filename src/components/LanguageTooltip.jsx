@@ -96,7 +96,7 @@ const LanguageTooltip = () => {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="bg-gradient-to-br from-blue-500 to-purple-600 text-white px-6 py-3 rounded-2xl shadow-2xl relative"
+              className="bg-gradient-to-br from-accent-500 to-primary-600 text-white px-6 py-3 rounded-2xl shadow-2xl relative"
             >
               {/* Brilho interno */}
               <div className="absolute inset-0 bg-white/20 rounded-2xl blur-sm"></div>
@@ -118,7 +118,7 @@ const LanguageTooltip = () => {
               </div>
 
               {/* Sombra colorida */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl blur-xl opacity-50 -z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-500 to-primary-600 rounded-2xl blur-xl opacity-50 -z-10"></div>
             </motion.div>
 
             {/* Setinha apontando para cima */}
@@ -153,8 +153,8 @@ const LanguageTooltip = () => {
                 />
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#9333ea" />
-                    <stop offset="100%" stopColor="#3b82f6" />
+                    <stop offset="0%" stopColor="#2dd4bf" />
+                    <stop offset="100%" stopColor="#22c55e" />
                   </linearGradient>
                 </defs>
               </svg>

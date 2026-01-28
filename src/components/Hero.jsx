@@ -2,13 +2,15 @@ import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import TypingBackground from './TypingBackground';
 import { useLanguage } from '../context/LanguageContext';
+import { useTerminal } from '../context/TerminalContext';
 
 const Hero = () => {
   const { translations } = useLanguage();
+  const { openTerminal } = useTerminal();
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center text-center p-8 relative overflow-hidden bg-slate-900">
+    <section className="min-h-screen flex flex-col justify-center items-center text-center p-8 relative overflow-hidden bg-dark-500">
       <TypingBackground />
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/30 via-teal-900/20 to-cyan-900/20 -z-10" />
       
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -16,19 +18,126 @@ const Hero = () => {
         transition={{ duration: 0.8 }}
         className="mb-4 relative z-10"
       >
-        <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-4">
+        <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-accent-400 to-emerald-400 mb-4">
           Lucas Braz
         </h1>
-        <h2 className="text-2xl md:text-3xl text-slate-300 font-semibold">
+        <h2 className="text-2xl md:text-3xl text-primary-100 font-semibold">
           {translations.hero.role}
         </h2>
+      </motion.div>
+
+      {/* Matrix Pills - Choose Your Path */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+        className="flex gap-8 items-center justify-center my-8 relative z-10"
+      >
+        {/* Backend Pill (Red) */}
+        <motion.a
+          href="#backend-section"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector('#backend-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          whileHover={{ scale: 1.1, y: -5 }}
+          whileTap={{ scale: 0.95 }}
+          className="group relative cursor-pointer"
+        >
+          {/* Hand holding pill */}
+          <div className="relative">
+            {/* Glow effect */}
+            <div className="absolute -inset-3 bg-gradient-to-r from-red-500 to-pink-600 rounded-full blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
+            
+            {/* Hand emoji base */}
+            <div className="relative text-6xl transform group-hover:rotate-12 transition-transform duration-300">
+              🤚
+              {/* Pill on hand */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-6 bg-gradient-to-br from-red-400 to-pink-600 rounded-full shadow-2xl shadow-red-500/50 flex items-center justify-center group-hover:animate-pulse">
+                <span className="text-[8px] font-bold text-white tracking-tight">BACK</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Label */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap"
+          >
+            <span className="text-xs font-mono text-red-300 opacity-0 group-hover:opacity-100 transition-opacity">
+              Backend
+            </span>
+          </motion.div>
+        </motion.a>
+
+        {/* VS Divider - Now opens terminal! */}
+        <motion.button
+          onClick={(e) => {
+            e.preventDefault();
+            openTerminal();
+          }}
+          whileHover={{ scale: 1.2, rotate: 180 }}
+          whileTap={{ scale: 0.9 }}
+          className="text-2xl font-bold text-primary-400/30 hover:text-primary-400 font-mono cursor-pointer transition-colors relative group"
+        >
+          ⚡
+          {/* Tooltip */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileHover={{ opacity: 1, y: 0 }}
+            className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <span className="text-xs font-mono text-primary-300 bg-dark-200 px-3 py-1 rounded-full border border-primary-500/30">
+              Matrix Terminal
+            </span>
+          </motion.div>
+        </motion.button>
+
+        {/* Frontend Pill (Blue) */}
+        <motion.a
+          href="#frontend-section"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector('#frontend-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          whileHover={{ scale: 1.1, y: -5 }}
+          whileTap={{ scale: 0.95 }}
+          className="group relative cursor-pointer"
+        >
+          {/* Hand holding pill */}
+          <div className="relative">
+            {/* Glow effect */}
+            <div className="absolute -inset-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
+            
+            {/* Hand emoji base */}
+            <div className="relative text-6xl transform group-hover:-rotate-12 transition-transform duration-300">
+              🤚
+              {/* Pill on hand */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-6 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full shadow-2xl shadow-cyan-500/50 flex items-center justify-center group-hover:animate-pulse">
+                <span className="text-[8px] font-bold text-white tracking-tight">FRONT</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Label */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap"
+          >
+            <span className="text-xs font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity">
+              Frontend
+            </span>
+          </motion.div>
+        </motion.a>
       </motion.div>
 
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.8 }}
-        className="text-lg md:text-xl text-slate-400 max-w-2xl mt-4 relative z-10"
+        className="text-lg md:text-xl text-primary-200/80 max-w-2xl mt-4 relative z-10"
       >
         {translations.hero.description}
       </motion.p>
@@ -42,14 +151,14 @@ const Hero = () => {
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <a 
             href="#contact"
-            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-500/30"
+            className="px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-full font-medium transition-all shadow-lg shadow-primary-500/40 hover:shadow-accent-500/40"
           >
             {translations.hero.contactBtn}
           </a>
           <a 
             href={`${import.meta.env.BASE_URL}cv-lucas-2026.pdf`}
             download
-            className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full font-medium transition-colors border border-slate-700"
+            className="px-8 py-3 bg-dark-200 hover:bg-dark-100 text-primary-100 rounded-full font-medium transition-colors border border-primary-700/50"
           >
             {translations.hero.downloadCv}
           </a>
@@ -62,7 +171,7 @@ const Hero = () => {
         transition={{ delay: 1.5, duration: 1, repeat: Infinity, repeatType: "reverse" }}
         className="absolute bottom-10"
       >
-        <ArrowDown className="w-8 h-8 text-slate-500" />
+        <ArrowDown className="w-8 h-8 text-primary-600" />
       </motion.div>
 
       {/* Floating Tech Stack Icons */}

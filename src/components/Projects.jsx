@@ -10,7 +10,7 @@ const Projects = () => {
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-3xl md:text-4xl font-bold mb-12 text-blue-400"
+        className="text-3xl md:text-4xl font-bold mb-12 text-primary-400"
       >
         {translations.projects.title}
       </motion.h2>
@@ -20,9 +20,9 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="group relative bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 hover:border-blue-500/50 transition-all hover:-translate-y-1"
+          className="group relative bg-dark-200 rounded-2xl overflow-hidden border border-dark-100 hover:border-primary-500/50 transition-all hover:-translate-y-1"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark-500 via-dark-500/40 to-transparent z-10" />
           
           {/* Project Content */}
           <div className="relative z-20 p-8 h-full flex flex-col justify-end min-h-[300px]">
@@ -31,22 +31,22 @@ const Projects = () => {
                 <ShoppingBag className="w-6 h-6 text-pink-400" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Gataria Shop</h3>
-              <p className="text-slate-300 mb-4">
+              <p className="text-primary-100 mb-4">
                 {translations.projects.gatariaDesc}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-6">
-              <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm border border-slate-600">Shopify</span>
-              <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm border border-slate-600">E-commerce</span>
-              <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm border border-slate-600">Design</span>
+              <span className="px-3 py-1 bg-dark-100/50 text-primary-100 rounded-full text-sm border border-dark-50">Shopify</span>
+              <span className="px-3 py-1 bg-dark-100/50 text-primary-100 rounded-full text-sm border border-dark-50">E-commerce</span>
+              <span className="px-3 py-1 bg-dark-100/50 text-primary-100 rounded-full text-sm border border-dark-50">Design</span>
             </div>
 
             <a 
               href="https://gataria.shop" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-medium transition-colors"
             >
               {translations.projects.visitStore} <ExternalLink className="w-4 h-4" />
             </a>
@@ -59,9 +59,9 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="flex items-center justify-center bg-slate-800/30 rounded-2xl border-2 border-dashed border-slate-700 min-h-[300px]"
+          className="flex items-center justify-center bg-dark-200/30 rounded-2xl border-2 border-dashed border-dark-100 min-h-[300px]"
         >
-          <p className="text-slate-500 font-medium">{translations.projects.soon}</p>
+          <p className="text-primary-400/50 font-medium">{translations.projects.soon}</p>
         </motion.div>
       </div>
     </section>
