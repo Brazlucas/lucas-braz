@@ -254,6 +254,23 @@ const FloatingTerminal = () => {
     }
   }, [isTerminalOpen, language, terminalHistory.length]);
 
+  // Force full screen on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsExpanded(true);
+      }
+    };
+
+    // Check initially
+    if (window.innerWidth < 768) {
+      setIsExpanded(true);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleCommand = (cmd, bypassSecurity = false) => {
     const command = cmd.toLowerCase().trim();
     const lang = language === 'pt' ? 'pt' : 'en';
@@ -372,7 +389,11 @@ const FloatingTerminal = () => {
       setTerminalHistory(newHistory);
 
     } else if (command === 'snake') {
-      setIsExpanded(true); // Full screen for game
+      if (window.innerWidth >= 768) {
+         setIsExpanded(true); // Full screen for game ONLY on desktop/tablet where it can toggle
+      }
+      // Mobile is already full screen
+      
       newHistory.push({ 
         type: 'output', 
         text: language === 'pt' ? 'Iniciando Snake Game...' : 'Starting Snake Game...'
@@ -514,7 +535,10 @@ const FloatingTerminal = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 bg-dark-500/95 backdrop-blur-sm z-40"
-                onClick={() => setIsExpanded(false)}
+                onClick={() => {
+                  // Only allow closing full screen backdrop click on desktop
+                  if (window.innerWidth >= 768) setIsExpanded(false);
+                }}
               />
             )}
 
@@ -562,7 +586,7 @@ const FloatingTerminal = () => {
                     />
                     <button
                       onClick={() => setIsExpanded(!isExpanded)}
-                      className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors"
+                      className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors hidden md:block"
                     />
                     <button className="w-3 h-3 rounded-full bg-primary-500 hover:bg-primary-600 transition-colors" />
                   </div>
@@ -581,7 +605,7 @@ const FloatingTerminal = () => {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setIsExpanded(!isExpanded)}
-                      className="text-primary-400 hover:text-primary-300 transition-colors"
+                      className="text-primary-400 hover:text-primary-300 transition-colors hidden md:block"
                     >
                       {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
                     </motion.button>

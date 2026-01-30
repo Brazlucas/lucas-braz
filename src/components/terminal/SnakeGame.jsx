@@ -5,7 +5,7 @@ const GRID_SIZE = 20;
 const GAME_SPEED = 150;
 
 const SnakeGame = ({ isExpanded = false }) => {
-  const CELL_SIZE = isExpanded ? 30 : 15;
+  const [cellSize, setCellSize] = useState(15);
   const [snake, setSnake] = useState([{ x: 5, y: 5 }, { x: 4, y: 5 }, { x: 3, y: 5 }]);
   const [food, setFood] = useState({ x: 10, y: 10 });
   const [direction, setDirection] = useState('RIGHT');
@@ -13,6 +13,29 @@ const SnakeGame = ({ isExpanded = false }) => {
   const [score, setScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const boardRef = useRef(null);
+
+  // Responsive Cell Size
+  useEffect(() => {
+    const calculateSize = () => {
+      if (!isExpanded) {
+        setCellSize(15);
+        return;
+      }
+      
+      // Calculate max available width (screen width - padding)
+      // On desktop, limit to 600px (30px * 20). On mobile, fit screen.
+      // Padding safety: 48px (p-6) * 2 sides approx 
+      const maxGameWidth = Math.min(window.innerWidth - 80, 600);
+      const calculated = Math.floor(maxGameWidth / GRID_SIZE);
+      
+      // Clamp between 10px and 30px
+      setCellSize(Math.max(10, Math.min(30, calculated)));
+    };
+
+    calculateSize();
+    window.addEventListener('resize', calculateSize);
+    return () => window.removeEventListener('resize', calculateSize);
+  }, [isExpanded]);
 
   // Generate random food position
   const generateFood = useCallback(() => {
@@ -126,18 +149,18 @@ const SnakeGame = ({ isExpanded = false }) => {
         ref={boardRef}
         className="relative bg-dark-900 border border-primary-500/50"
         style={{
-          width: GRID_SIZE * CELL_SIZE,
-          height: GRID_SIZE * CELL_SIZE
+          width: GRID_SIZE * cellSize,
+          height: GRID_SIZE * cellSize
         }}
       >
         {/* Food */}
         <div
           className="absolute bg-red-500 rounded-sm"
           style={{
-            left: food.x * CELL_SIZE,
-            top: food.y * CELL_SIZE,
-            width: CELL_SIZE - 2,
-            height: CELL_SIZE - 2,
+            left: food.x * cellSize,
+            top: food.y * cellSize,
+            width: cellSize - 2,
+            height: cellSize - 2,
           }}
         />
 
@@ -147,10 +170,10 @@ const SnakeGame = ({ isExpanded = false }) => {
             key={`${segment.x}-${segment.y}-${i}`}
             className={`absolute ${i === 0 ? 'bg-primary-400' : 'bg-primary-600'} rounded-sm`}
             style={{
-              left: segment.x * CELL_SIZE,
-              top: segment.y * CELL_SIZE,
-              width: CELL_SIZE - 2,
-              height: CELL_SIZE - 2,
+              left: segment.x * cellSize,
+              top: segment.y * cellSize,
+              width: cellSize - 2,
+              height: cellSize - 2,
             }}
           />
         ))}
@@ -167,9 +190,40 @@ const SnakeGame = ({ isExpanded = false }) => {
             >
               {gameOver ? 'TRY AGAIN' : 'START GAME'}
             </button>
-            <p className="text-xs text-primary-300/60 mt-2">Use Arrow Keys</p>
+            <p className="text-xs text-primary-300/60 mt-2 hidden md:block">Use Arrow Keys</p>
+            <p className="text-xs text-primary-300/60 mt-2 md:hidden">Tap buttons below</p>
           </div>
         )}
+      </div>
+
+      {/* Mobile Controls */}
+      <div className="grid grid-cols-3 gap-2 mt-4 md:hidden">
+        <div />
+        <button 
+          className="w-12 h-12 bg-dark-200 border border-primary-500/50 rounded flex items-center justify-center active:bg-primary-500/20"
+          onClick={(e) => { e.preventDefault(); if (direction !== 'DOWN') setDirection('UP'); }}
+        >
+          ⬆️
+        </button>
+        <div />
+        <button 
+          className="w-12 h-12 bg-dark-200 border border-primary-500/50 rounded flex items-center justify-center active:bg-primary-500/20"
+          onClick={(e) => { e.preventDefault(); if (direction !== 'RIGHT') setDirection('LEFT'); }}
+        >
+          ⬅️
+        </button>
+        <button 
+          className="w-12 h-12 bg-dark-200 border border-primary-500/50 rounded flex items-center justify-center active:bg-primary-500/20"
+          onClick={(e) => { e.preventDefault(); if (direction !== 'UP') setDirection('DOWN'); }}
+        >
+          ⬇️
+        </button>
+        <button 
+          className="w-12 h-12 bg-dark-200 border border-primary-500/50 rounded flex items-center justify-center active:bg-primary-500/20"
+          onClick={(e) => { e.preventDefault(); if (direction !== 'LEFT') setDirection('RIGHT'); }}
+        >
+          ➡️
+        </button>
       </div>
     </div>
   );
