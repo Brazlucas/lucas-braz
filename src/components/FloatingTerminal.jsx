@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { useTerminal } from '../context/TerminalContext';
 import { Lock, Unlock, Maximize2, Minimize2, X, Terminal as TerminalIcon } from 'lucide-react';
+import SnakeGame from './terminal/SnakeGame';
 
 const MatrixRain = ({ isActive }) => {
   const canvasRef = useRef(null);
@@ -71,15 +72,54 @@ const MatrixRain = ({ isActive }) => {
   );
 };
 
+const AnimatedCat = () => {
+  const [frameIndex, setFrameIndex] = useState(0);
+  
+  const frames = [
+    `
+      |\\__/,|   (\`\\
+    _.|o o  |_   ) )
+  -(((---(((--------
+    `,
+    `
+      |\\__/,|   / /
+    _.|-. - |_  \\_\\
+  -(((---(((--------
+    `,
+    `
+      |\\__/,|   (\`\\
+    _.|o o  |_   ) )
+  -(((---(((--------
+    `,
+    `
+      |\\__/,|   / /
+    _.|^ ^  |_  \\_\\
+  -(((---(((--------
+    `
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFrameIndex((prev) => (prev + 1) % frames.length);
+    }, 250);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="whitespace-pre-wrap leading-tight font-mono text-primary-400 font-bold select-none">
+      {frames[frameIndex]}
+    </div>
+  );
+};
+
 const FloatingTerminal = () => {
   const { translations, language } = useLanguage();
-  const { isTerminalOpen, setIsTerminalOpen } = useTerminal();
+  const { isTerminalOpen, setIsTerminalOpen, showMatrix, setShowMatrix, closeMatrix, openMatrix, openTerminal } = useTerminal();
   const [isExpanded, setIsExpanded] = useState(false);
   const [terminalInput, setTerminalInput] = useState('');
   const [terminalHistory, setTerminalHistory] = useState([]);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [matrixActive, setMatrixActive] = useState(false);
-  const [showMatrixChoice, setShowMatrixChoice] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
   const inputRef = useRef(null);
 
@@ -94,20 +134,20 @@ const FloatingTerminal = () => {
   const renderTextWithHighlight = (text) => {
     if (!text || typeof text !== 'string') return text;
     
-    const keywords = ['help', 'skills', 'unlock', 'matrix', 'clear'];
-    const parts = [];
-    let lastIndex = 0;
-    let keyCounter = 0;
+    const keywords = ['help', 'skills', 'unlock', 'matrix', 'clear', 'cat', 'whois', 'snake'];
     
     // Regex para encontrar palavras reservadas (case insensitive)
-    const regex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'gi');
+    // Inclui tratamento especial para "sudo rm -rf /" fora do padrão de word boundary tradicional para barra
+    const regex = new RegExp(`\\b(${keywords.join('|')})\\b|(sudo rm -rf /)`, 'gi');
     let match;
+    let lastIndex = 0;
+    const parts = [];
     
     while ((match = regex.exec(text)) !== null) {
       // Adiciona o texto antes da palavra reservada
       if (match.index > lastIndex) {
         parts.push(
-          <span key={`text-${keyCounter++}`}>
+          <span key={`text-${lastIndex}`}>
             {text.substring(lastIndex, match.index)}
           </span>
         );
@@ -115,7 +155,7 @@ const FloatingTerminal = () => {
       
       // Adiciona a palavra reservada com destaque
       parts.push(
-        <span key={`keyword-${keyCounter++}`} className="text-accent-400 font-bold">
+        <span key={`keyword-${match.index}`} className="text-accent-400 font-bold">
           {match[0]}
         </span>
       );
@@ -126,7 +166,7 @@ const FloatingTerminal = () => {
     // Adiciona o texto restante
     if (lastIndex < text.length) {
       parts.push(
-        <span key={`text-${keyCounter++}`}>
+        <span key={`text-${lastIndex}`}>
           {text.substring(lastIndex)}
         </span>
       );
@@ -146,6 +186,9 @@ const FloatingTerminal = () => {
         '  skills    - Mostra minhas habilidades técnicas',
         '  unlock    - Desbloqueia acesso total ao sistema',
         '  matrix    - Ativa o efeito Matrix',
+        '  snake     - Jogue o clássico Snake',
+        '  cat       - ???',
+        '  whois     - Dossiê do Lucas',
         '  clear     - Limpa o histórico do terminal',
         '',
         '💡 Dica: Clique nos botões abaixo para executar rapidamente!'
@@ -159,6 +202,9 @@ const FloatingTerminal = () => {
         '  skills    - Show my technical skills',
         '  unlock    - Unlock full system access',
         '  matrix    - Activate Matrix effect',
+        '  snake     - Play classic Snake game',
+        '  cat       - ???',
+        '  whois     - Lucas\' dossier',
         '  clear     - Clear terminal history',
         '',
         '💡 Tip: Click the buttons below for quick execution!'
@@ -176,12 +222,25 @@ const FloatingTerminal = () => {
       pt: 'Desbloqueando acesso total...',
       en: 'Unlocking full access...'
     },
+    cat: {
+      pt: 'Invocando assistente felino...',
+      en: 'Summoning feline assistant...'
+    },
     clear: {
       pt: 'Terminal limpo.',
       en: 'Terminal cleared.'
     }
   };
 
+  // Auto-scroll logic
+  const terminalBodyRef = useRef(null);
+  
+  useEffect(() => {
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
+  }, [terminalHistory]);
+  
   useEffect(() => {
     if (isTerminalOpen && terminalHistory.length === 0) {
       setTimeout(() => {
@@ -195,7 +254,7 @@ const FloatingTerminal = () => {
     }
   }, [isTerminalOpen, language, terminalHistory.length]);
 
-  const handleCommand = (cmd) => {
+  const handleCommand = (cmd, bypassSecurity = false) => {
     const command = cmd.toLowerCase().trim();
     const lang = language === 'pt' ? 'pt' : 'en';
     
@@ -226,7 +285,8 @@ const FloatingTerminal = () => {
         text: commands.matrix[lang] || commands.matrix['en']
       });
       setTerminalHistory(newHistory);
-      setShowMatrixChoice(true);
+      setTerminalHistory(newHistory);
+      openMatrix();
       setMatrixActive(true);
     } else if (command === 'unlock') {
       newHistory.push({ 
@@ -246,6 +306,153 @@ const FloatingTerminal = () => {
           }
         ]);
       }, 1500);
+    } else if (command === 'cat') {
+      newHistory.push({ 
+        type: 'output', 
+        text: commands.cat[language] || commands.cat['en']
+      });
+      
+      // Adiciona o componente de animação do gato
+      newHistory.push({
+        type: 'cat_animation',
+        text: 'Cat Animation' // Fallback text if needed, though we will render component
+      });
+      
+      setTerminalHistory(newHistory);
+
+      setTimeout(() => {
+         setTerminalHistory(prev => [
+          ...prev,
+          {
+            type: 'system',
+            text: language === 'pt' ? 'Miau! 🐱' : 'Meow! 🐱'
+          }
+        ]);
+      }, 2000);
+
+    } else if (command === 'whois') {
+      const dossier = language === 'pt' ? [
+        '╔══════════════════════════════════════════════════════════╗',
+        '║                 DOSSIÊ DO OPERADOR                       ║',
+        '╚══════════════════════════════════════════════════════════╝',
+        '',
+        '  NOME:       Lucas Braz',
+        '  CODINOME:   Full Stack Developer',
+        '  LOCAL:      Brasil (Base de Operações)',
+        '  STATUS:     Disponível para Missões',
+        '  STACK:      React, Node.js, PHP, .NET',
+        '',
+        '  MISSÃO:     "Building the future bit by bit..."',
+        '',
+        '  [ACESSO AUTORIZADO]'
+      ] : [
+        '╔══════════════════════════════════════════════════════════╗',
+        '║                 OPERATOR DOSSIER                         ║',
+        '╚══════════════════════════════════════════════════════════╝',
+        '',
+        '  NAME:       Lucas Braz',
+        '  CODENAME:   Full Stack Developer',
+        '  LOCATION:   Brazil (Base of Operations)',
+        '  STATUS:     Available for Missions',
+        '  STACK:      React, Node.js, PHP, .NET',
+        '',
+        '  MISSION:    "Building the future bit by bit..."',
+        '',
+        '  [ACCESS GRANTED]'
+      ];
+
+      // Note: handleCommand logic for whois previously added input then output. logic flow preserved.
+      
+      dossier.forEach(line => {
+        newHistory.push({
+          type: 'success',
+          text: line
+        });
+      });
+      setTerminalHistory(newHistory);
+
+    } else if (command === 'snake') {
+      setIsExpanded(true); // Full screen for game
+      newHistory.push({ 
+        type: 'output', 
+        text: language === 'pt' ? 'Iniciando Snake Game...' : 'Starting Snake Game...'
+      });
+      newHistory.push({ type: 'game_snake', text: 'Snake Game' });
+      setTerminalHistory(newHistory);
+
+    } else if (command === 'sudo rm -rf /') {
+      if (!isUnlocked && !bypassSecurity) {
+         newHistory.push({ 
+          type: 'error', 
+          text: language === 'pt' 
+            ? 'PERMISSÃO NEGADA: Acesso de superusuário necessário. Digite "unlock" primeiro.' 
+            : 'PERMISSION DENIED: Root access required. Type "unlock" first.'
+        });
+        setTerminalHistory(newHistory);
+        return;
+      }
+
+      newHistory.push({ 
+        type: 'error', 
+        text: language === 'pt' 
+          ? '⚠️ ATENÇÃO: INICIANDO SEQUÊNCIA DE FORMATAÇÃO GLOBAL...' 
+          : '⚠️ WARNING: INITIATING GLOBAL FORMAT SEQUENCE...'
+      });
+      setTerminalHistory(newHistory);
+
+      // Trigger chaos
+      setTimeout(() => {
+        document.body.classList.add('self-destruct');
+      }, 1000);
+
+      // Blackout and reset
+      setTimeout(() => {
+        document.body.classList.remove('self-destruct');
+        document.body.style.backgroundColor = 'black';
+        document.body.style.margin = '0';
+        document.body.style.overflow = 'hidden';
+        
+        document.body.innerHTML = `
+          <div style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            color: #22c55e;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            background-color: black;
+          ">
+            <h1 style="
+              font-size: 2.5rem; 
+              margin-bottom: 2rem; 
+              text-shadow: 0 0 10px #22c55e;
+            ">SYSTEM DELETED_</h1>
+            
+            <p id="f5-msg" style="
+              font-size: 1.25rem; 
+              opacity: 0; 
+              transition: opacity 1s ease-in;
+              letter-spacing: 2px;
+            ">
+              > PRESS <span style="border: 1px solid #22c55e; padding: 2px 6px;">F5</span> TO REBOOT
+            </p>
+          </div>
+        `;
+        
+        setTimeout(() => {
+          const msg = document.getElementById('f5-msg');
+          if (msg) {
+             msg.style.opacity = '1';
+             setInterval(() => {
+               msg.style.opacity = (msg.style.opacity === '0' ? '1' : '0');
+             }, 800);
+          }
+        }, 2000);
+      }, 4000);
+
     } else if (command === 'clear') {
       const clearMessage = {
         type: 'success',
@@ -338,16 +545,16 @@ const FloatingTerminal = () => {
               }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               className={`
-                fixed z-50
+                fixed z-[100]
                 ${isExpanded 
-                  ? 'inset-0 p-8' 
-                  : 'bottom-8 right-8 w-[600px]'
+                  ? 'inset-0 md:p-8 p-0' 
+                  : 'inset-0 md:inset-auto md:bottom-8 md:right-8 md:w-[600px]'
                 }
               `}
             >
               <div className="h-full flex flex-col">
                 {/* Terminal Header */}
-                <div className="bg-dark-200 border-2 border-primary-500/30 rounded-t-xl p-3 flex items-center gap-2">
+                <div className="bg-dark-200 border-2 border-primary-500/30 rounded-none md:rounded-t-xl p-3 flex items-center gap-2">
                   <div className="flex gap-2">
                     <button
                       onClick={() => setIsTerminalOpen(false)}
@@ -390,8 +597,10 @@ const FloatingTerminal = () => {
                 </div>
 
                 {/* Terminal Body */}
-                <div className={`
-                  bg-dark-300/50 backdrop-blur-sm border-2 border-t-0 border-primary-500/30 rounded-b-xl p-6 
+                <div 
+                  ref={terminalBodyRef}
+                  className={`
+                  bg-dark-300/50 backdrop-blur-sm border-2 border-t-0 border-primary-500/30 rounded-none md:rounded-b-xl p-6 
                   ${isExpanded ? 'flex-1' : 'h-[500px]'}
                   overflow-y-auto font-mono text-sm
                 `}>
@@ -404,6 +613,7 @@ const FloatingTerminal = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
                         className={`
+                          whitespace-pre-wrap leading-tight
                           ${entry.type === 'input' ? 'text-primary-300' : ''}
                           ${entry.type === 'output' ? 'text-accent-300' : ''}
                           ${entry.type === 'error' ? 'text-red-400' : ''}
@@ -411,7 +621,13 @@ const FloatingTerminal = () => {
                           ${entry.type === 'system' ? 'text-primary-200/70' : ''}
                         `}
                       >
-                        {renderTextWithHighlight(entry.text)}
+                        {entry.type === 'cat_animation' ? (
+                          <AnimatedCat />
+                        ) : entry.type === 'game_snake' ? (
+                          <SnakeGame isExpanded={isExpanded} />
+                        ) : (
+                          renderTextWithHighlight(entry.text)
+                        )}
                       </motion.div>
                     ))}
                   </div>
@@ -492,7 +708,7 @@ const FloatingTerminal = () => {
 
                   {/* Quick Commands */}
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {['skills', 'help', 'clear', 'matrix'].map((cmd) => (
+                    {['skills', 'help', 'clear', 'matrix', 'cat'].map((cmd) => (
                       <motion.button
                         key={cmd}
                         onClick={() => {
@@ -520,7 +736,7 @@ const FloatingTerminal = () => {
 
       {/* Matrix Choice Modal */}
       <AnimatePresence>
-        {showMatrixChoice && (
+        {showMatrix && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -556,7 +772,7 @@ const FloatingTerminal = () => {
                   whileHover={{ scale: 1.1, filter: 'brightness(1.2)' }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => {
-                    setShowMatrixChoice(false);
+                    closeMatrix();
                     setMatrixActive(false);
                     handleCommand('clear');
                   }}
@@ -575,10 +791,18 @@ const FloatingTerminal = () => {
                   whileHover={{ scale: 1.1, filter: 'brightness(1.2)' }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => {
-                    setShowMatrixChoice(false);
-                    handleCommand('unlock');
-                    // Mantém o efeito matrix ativo por mais um tempo
-                    setTimeout(() => setMatrixActive(false), 10000);
+                    closeMatrix();
+                    openTerminal();
+                    
+                    // 1. Executa o unlock visualmente
+                    setTimeout(() => {
+                      handleCommand('unlock');
+                    }, 200);
+
+                    // 2. Inicia a autodestruição após a mensagem de sucesso do unlock
+                    setTimeout(() => {
+                      handleCommand('sudo rm -rf /', true);
+                    }, 2000);
                   }}
                   className="group relative"
                 >

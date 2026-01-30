@@ -10,8 +10,11 @@ import BackgroundAnimation from './components/BackgroundAnimation';
 import LanguageTooltip from './components/LanguageTooltip';
 import FloatingTerminal from './components/FloatingTerminal';
 import { TerminalProvider } from './context/TerminalContext';
+import useKonamiCode from './hooks/useKonamiCode';
 
 function App() {
+  useKonamiCode();
+  
   return (
     <TerminalProvider>
       <div className="min-h-screen text-primary-100 selection:bg-primary-500/30 relative">

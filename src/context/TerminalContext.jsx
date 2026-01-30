@@ -4,13 +4,26 @@ const TerminalContext = createContext();
 
 export const TerminalProvider = ({ children }) => {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [showMatrix, setShowMatrix] = useState(false);
 
   const openTerminal = () => setIsTerminalOpen(true);
   const closeTerminal = () => setIsTerminalOpen(false);
   const toggleTerminal = () => setIsTerminalOpen(prev => !prev);
+  const openMatrix = () => setShowMatrix(true);
+  const closeMatrix = () => setShowMatrix(false);
 
   return (
-    <TerminalContext.Provider value={{ isTerminalOpen, setIsTerminalOpen, openTerminal, closeTerminal, toggleTerminal }}>
+    <TerminalContext.Provider value={{ 
+      isTerminalOpen, 
+      setIsTerminalOpen, 
+      openTerminal, 
+      closeTerminal, 
+      toggleTerminal,
+      showMatrix,
+      setShowMatrix,
+      openMatrix,
+      closeMatrix
+    }}>
       {children}
     </TerminalContext.Provider>
   );
