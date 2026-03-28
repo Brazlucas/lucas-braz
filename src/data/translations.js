@@ -46,7 +46,9 @@ export const translations = {
     projects: {
       title: 'Projetos',
       gatariaDesc: 'Loja virtual especializada em camisetas estampadas personalizadas com temática de gatinhos.',
+      zeroeumDesc: 'Site institucional da consultoria de tecnologia Zero Um, com design minimalista, alta conversão e foco em performance.',
       visitStore: 'Visitar Loja',
+      visitProject: 'Visitar Projeto',
       soon: 'Em breve mais projetos...',
     },
     experience: {
@@ -133,7 +135,9 @@ export const translations = {
     projects: {
       title: 'Projects',
       gatariaDesc: 'Online store specializing in custom printed t-shirts with cat themes.',
+      zeroeumDesc: 'Institutional website for the Zero Um technology consultancy, featuring a minimalist design, high conversion rates, and performance focus.',
       visitStore: 'Visit Store',
+      visitProject: 'Visit Project',
       soon: 'More projects coming soon...',
     },
     experience: {
