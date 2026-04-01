@@ -34,7 +34,7 @@ const Experience = () => {
   const experiences = [
     {
       role: translations.experience.jobs[0].role,
-      company: "INFOCAR TECNOLOGIA",
+      company: "INFOCAR",
       period: "01/2023 - Atualmente",
       description: translations.experience.jobs[0].description
     },

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Github, Linkedin } from 'lucide-react';
+import { Phone, Mail, Github, Linkedin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
@@ -73,11 +73,6 @@ const Contact = () => {
           className="mt-12 p-8 bg-dark-200/50 rounded-2xl border border-dark-100"
         >
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-            <div className="flex items-center gap-3">
-              <MapPin className="w-6 h-6 text-accent-400" />
-              <p className="text-primary-100">Rua Eduardo Vicente Nasser 427 - Barro Branco/SP</p>
-            </div>
-            
             <div className="flex gap-4">
               <a 
                 href="https://github.com/Brazlucas" 

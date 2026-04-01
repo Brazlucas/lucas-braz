@@ -56,7 +56,7 @@ export const translations = {
       title: 'Experiência',
       jobs: [
         {
-          role: 'Desenvolvedor Junior III full-stack',
+          role: 'Desenvolvedor Full-Stack',
           description: 'Desenvolvimento e manutenção de sistemas web, foco em Laravel e Vue.js.',
         },
         {

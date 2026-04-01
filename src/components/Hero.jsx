@@ -68,13 +68,13 @@ const Hero = () => {
           >
             {translations.hero.contactBtn}
           </a>
-          <a 
+          {/* <a 
             href={`${import.meta.env.BASE_URL}cv-lucas-2026.pdf`}
             download
             className="px-8 py-3 bg-dark-200 hover:bg-dark-100 text-primary-100 rounded-full font-medium transition-colors border border-primary-700/50"
           >
             {translations.hero.downloadCv}
-          </a>
+          </a> */}
         </div>
       </motion.div>
 
