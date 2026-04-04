@@ -34,19 +34,19 @@ const Experience = () => {
   const experiences = [
     {
       role: translations.experience.jobs[0].role,
-      company: "Setor automotivo e sistemas de larga escala",
-      period: "01/2023 - Atualmente",
+      company: "Empresa do ramo automotivo e sistemas de larga escala",
+      period: "01/2023 - Presente",
       description: translations.experience.jobs[0].description
     },
     {
       role: translations.experience.jobs[1].role,
-      company: "Setor automotivo e sistemas de vistoria",
+      company: "Empresa do ramo automotivo e sistemas de auto vistoria",
       period: "06/2022 - 01/2023",
       description: translations.experience.jobs[1].description
     },
     {
       role: translations.experience.jobs[2].role,
-      company: "Setor de manutenção de computadores",
+      company: "Empresa especialista em manutenção de computadores",
       period: "2018",
       description: translations.experience.jobs[2].description
     }
