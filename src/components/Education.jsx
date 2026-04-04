@@ -26,7 +26,7 @@ const Education = () => {
                 className="bg-dark-200 p-6 rounded-xl border-l-4 border-primary-500"
               >
                 <h3 className="text-xl font-bold text-white">{translations.education.items.ads}</h3>
-                <p className="text-accent-400">UNICESUMAR</p>
+                {/* <p className="text-accent-400">UNICESUMAR</p> */}
                 <p className="text-primary-200/70 text-sm mt-1">{translations.education.items.semester}</p>
               </motion.div>
 
@@ -56,9 +56,9 @@ const Education = () => {
             <div className="space-y-4">
               {[
                 { title: translations.education.certs[0].title, org: "Alura", year: "2022" },
-                { title: translations.education.certs[1].title, org: "ENIAC", year: "" },
-                { title: translations.education.certs[2].title, org: "ENIAC", year: "" },
-                { title: translations.education.certs[3].title, org: "ENIAC", year: "2022" }
+                { title: translations.education.certs[1].title, org: "UNIVERSIDADE", year: "" },
+                { title: translations.education.certs[2].title, org: "UNIVERSIDADE", year: "" },
+                { title: translations.education.certs[3].title, org: "UNIVERSIDADE", year: "2022" }
               ].map((cert, index) => (
                 <motion.div
                   key={index}

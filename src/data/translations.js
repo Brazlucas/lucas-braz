@@ -74,7 +74,7 @@ export const translations = {
       certifications: 'Certificações',
       items: {
         ads: 'Análise e Desenvolvimento de Sistemas',
-        semester: '5º Semestre',
+        semester: '6º Semestre',
         english: 'Advanced English',
       },
       certs: [
